@@ -14,6 +14,7 @@ class Lesson(models.Model):
   title = models.CharField(max_length=100)
   video_link = models.URLField()
   duration = models.IntegerField()
+  product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.title
@@ -23,6 +24,7 @@ class UserLesson(models.Model):
   lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
   watched_time = models.IntegerField(default=0)
   status = models.BooleanField(default=False)
+  last_watched_date = models.DateTimeField(null=True, blank=True)
 
   def __str__(self):
     return f"{self.user.username} - {self.lesson.title}"
