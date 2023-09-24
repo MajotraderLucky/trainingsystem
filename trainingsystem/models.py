@@ -9,3 +9,20 @@ class Product(models.Model):
 
 class ProductAccess(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Lesson(models.Model):
+  title = models.CharField(max_length=100)
+  video_link = models.URLField()
+  duration = models.IntegerField()
+
+  def __str__(self):
+    return self.title
+  
+class UserLesson(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+  watched_time = models.IntegerField(default=0)
+  status = models.BooleanField(default=False)
+
+  def __str__(self):
+    return f"{self.user.username} - {self.lesson.title}"
